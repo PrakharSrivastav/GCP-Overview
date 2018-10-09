@@ -1,0 +1,73 @@
+Firewall rules have the following characteristics:
+
+   	- Firewall rules are defined at the VPC network level, and are specific to the network in which they are defined. 
+   	- The rules themselves cannot be shared among networks.
+    - Firewall rules only support IPv4 traffic. 
+    - The action taken by a firewall rule is either allow or deny. 
+    - Each firewall rule is defined to apply to either incoming (ingress) or outgoing (egress) traffic, not both. 
+    - GCP firewall rules are stateful. If a connection is allowed between a source and a target or a target and a destination, all subsequent traffic in either direction will be allowed as long as the connection is active. In other words, firewall rules allow bidirectional communication once a session is established. The connection is considered active if at least one packet is sent every 10 minutes. Firewall rules cannot allow traffic in one direction while denying the associated return traffic.
+	- GCP firewall rules do not reassemble fragmented TCP packets. Consequently, a firewall rule applicable to the TCP protocol can only apply to the first fragment because it contains the TCP header. Firewall rules applicable to the TCP protocol do not apply to the subsequent TCP fragments.
+
+Firewall rule components
+
+Each firewall rule consists of the following configuration components:
+
+    - A numerical priority, which is used to determine if the rule will be applied. Only the highest priority rule is applied; 
+    - conflicting rules with lower priorities are ignored.
+    - The direction of traffic: ingress rules apply to incoming connections from specified sources to GCP targets, and egress rules apply to traffic going to specified destinations from targets.
+    - An action on match, either allow or deny, which determines if the rule permits or blocks traffic.
+    - A target, which defines the instances (including GKE clusters and App Engine Flex instances) to which the rule will apply.
+    - A source for ingress rules or a destination for egress rules
+    - The protocol (such as TCP, UDP, or ICMP) and port
+    - The enforcement status of the firewall rule: You can enable and disable firewall rules without deleting them.
+
+Specifications
+
+Firewall rule logging has the following specifications:
+
+    You can only enable firewall rule logging for rules in a VPC network. Legacy networks are not supported.
+    Firewall rule logging only records TCP and UDP connections. Although you can create a firewall rule applicable to other protocols, you cannot log their connections.
+    You cannot enable firewall rule logging for the automatically-created default rules in the default network. If you need to log connections that would match these rules, first replace the default rules with custom ones. Enable firewall rule logging when you create the custom replacement rules.
+    You cannot enable firewall rule logging for the implied deny ingress and implied allow egress rules.
+    Log entries are written from the perspective of VM instances. Log entries are only created if a firewall rule has logging enabled and if the rule applies to traffic sent to or from the VM. Entries are created according to the connection logging limits on a best effort basis.
+
+
+Shared VPC
+	- Allows resources from multiple projects to share same VPC
+	- Participating projects are either
+		- A host project : contains 1 or more Shared VPC nw.
+		- A service project : attaches itself to VPC of host project.
+
+
+VPC
+	- 1 VPC can have upto 7000 VMs
+	- Upto 5 VPC in single project
+
+Dedicated Interconnect
+	- Maximum 8 connections supported.
+	- Each connection 10 gbps.
+	- More cost effective than high bandwidth internet and VPN tunnels.
+	- Unencrypted data transfer.
+	- Low egress traffic cost, because not traffic goes through internet.
+Direct peering
+	- Direct connection between on premise and GCP.
+	- BGP routes exchagned for dynamic routing.
+	- Used for accessing all of Google's products.
+Carrier peering
+	- Also called carrier interconnect.
+	- Trhough a provider
+	- Google services
+	- no SLA
+
+Connecting between projects
+	- Shared VPC
+		- Also called XPN
+		- All projects on same network
+		- Same network across projects
+	- Network peering
+		- Projects between different projects organizations.
+		- Faster because within gcp private RFC1918
+		- Cost effective
+		- Seperate Network administration
+		- One VPC can peer with maximum 25 other VPCs
+		- No transitive peering.

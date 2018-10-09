@@ -1,0 +1,156 @@
+Compute Services
+Cloud Storage
+Database
+Pubsub
+Datastore
+VM Images and Disks
+VPC and Networking *Need to review*
+Instance Groups and Templates
+Autoscaling and loadbalancing *Need to review*
+Deployment Manager
+IAM Identity and security
+Stackdriver monitoring and logging
+bigTable : NoSql, highly scale
+
+NEXT
+	- Loadbalancing and Autoscaling
+		- Review again
+		- Criteria for auto scaling
+	- Case studies
+	- Instance Groups Template
+		- Managed Instances
+	- App engine
+	- Stack driver
+		- More details
+	- Storage
+		- Migrating data to sql
+		- Datastore
+		- Spanner
+		- Cloud storage 
+			- Access : All below can be used togethe as well
+				- IAM
+				- ACL for more fine grained control
+				- signed URL : for time bound access
+				- Signed policy document
+
+			- storage class
+				- multi_regional 99.95%
+				- regional :99.9%
+					- cheaper the multi because no egress charge to copy for redundancy
+					- integrated with dataproc, ML and BigQuery
+				- nearline: 99%
+				- coldline: 99%
+			- infinitely scalable
+			- fully manages
+			- eventually consistant
+				- revoking access
+			- Strong consistency
+				- read-after-write
+				- read-after-metadata-update
+				- read-after-delete
+				- bucket listing
+				- object listing
+				- Ganting access to resources
+			- cannot nest buckets. Can nest directories
+			- 1 ops per 2 seconds on bucket create and delete
+			- storage class of bucket can be changed after creating
+			- bucket name , location can be changed by recreating bucket
+			- objects
+				- 5 TB max
+				- object data and object metadata
+				- immutable eg cannot append to a file. You can only update the whole file
+				- on update permissions are preserved
+				- Single object can be updated once per second 503
+				- inherits storage class of bucket
+			- versioning
+				- bucket : enable or disable versioning
+				- once versioning enabled, creates archives version of current and updates/deletes existing
+				- restore old version or delete permanently
+			- u can view some metadata and update other metadata
+			- object name should be unique within bucket
+	- Pubsub
+	- VM Types
+		- high memory
+		- high CPU
+		- Memory optimized
+		- Standard
+		- Shared core
+	- VM Images and Disks
+		- Predefined VM
+			- Max 16 disks per VM. 
+			- Max 64 TB per disk.
+			- Max 10 disks per CPU
+		- Custom VM
+			- 1 or even number of vCPU
+			- RAM > 0.9 - 6.5 GB per vCPU
+			- RAM must be multiple of 256 MB
+	- Persistance disk
+		- Zonal Resource
+		- Bootable Snapshots
+		- SSD or Magnetic
+	- Local Disk
+		- Ephemeral : Data stays on restart but not on Delete or Terminate
+		- Provides High IOPS basd on size of the disk
+		- Fixed size 375 GB
+		- Max 8 Loacl disk per VM (3TB)
+		- No Live Migration
+	- RAM Disk
+		- Ephemeral
+		- Can be used similar to RAM
+		- Alllows data to be persisted in tmpfs. Data lost after restart
+	- Boot Disk
+		- Persistant disk
+		- Bootable
+		- Snapshot
+	- Moving the Compute Engine to another Zone
+		- Through GCP Console
+		- Using gcloud commandline
+	- Preemptible
+		- 80% discount
+		- No SLA
+		- Charged only if running for 10 minutes or more
+		- Only available for 24 hours
+		- 30 secs preemption for VM 
+	- Pricing Innovation
+		- Preemptable : 80 %
+		- Sustained Usage:
+			- Inferred Usage discount
+		- Comitted usage discount
+		- Recommendation Engine : Monthyl usage 
+IMAGES
+	- Private : User
+		- Import a bootdisk
+		- Create an image
+		- Copy one to another image
+	- Public : google
+	- Community supported : By community
+
+INSTANCE TEMPLATE
+	- Definition of machine type
+		- image, zone etc
+	- Does not setup VM right away
+	- Used by Instance Groups
+	- Clobal Resource
+
+INSTANCE GROUPS
+	- Group of VM
+	- Managed
+		- Zonal and Regional
+		- identical
+		- used for auto scaling
+		- rolling updates can be done
+		- Changes to instance reflects to all VMs in the group
+	- Unmanaged
+		- unindentical
+		- No rolling updates, loadbalancing, auto scaling
+	- Used with auto scaling and loadbalancing
+
+		- VM Migration
+		- VM and Disk stats
+		- Cloud CDN Caching
+
+Live Migration
+	- Transparent maintenance
+	- Local SSD goes away
+	- Preemptable machines not supported
+	- check metadata to see if machine is being live migrated

@@ -1,0 +1,16 @@
+GLOBAL Resources
+	Network
+	VM Image
+	VM Snapshots
+	Cloud Pub/Sub Topics
+	VPC Networks
+	Instance Templates
+	HTTP(S) Load balancers
+REGIONAL Resource
+	STATIC ip
+	Subnets
+	Cloud Router 
+ZONAL Resource
+	VM Instances
+	VM Persistance Disks
+	Dataproc

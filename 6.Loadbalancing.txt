@@ -1,0 +1,46 @@
+Features
+	- Load balance in single or multiple regions.
+	- Meet high availability requirements.
+	- Put resource behind single IP.
+	- Scale resources up and down with traffic.
+	- Use CDN for delivery.
+
+Decide based on following
+	- Internal vs External
+	- Global vs Regional
+	- Content based
+
+LB Types
+	- External 
+		- HTTPS
+			- URL based
+			- Uses Instance Groups
+			- Content Aware
+			- Websocket support
+		- SSL
+		- TCP
+	- Internal
+		- Internal Load balancer
+	- Global / Regional
+		- Regional External : Network Loadbalancer
+		- Regional Internal : Internal Loadbalancer
+
+	- Content Aware
+
+
+Instance Templates
+	- Tempalte for creating VM
+
+Instance Groups
+	- Group of VMs
+	- Managed 
+		- Zonal
+		- Regional
+	- Unmanaged
+		- Can be used for LOADBALANCING
+	HTTPS LB 
+		--> Forwarding Rule 
+			--> Target Proxy 
+				--> URL MAP 
+					--> Backend Service 
+						--> Instance Groups

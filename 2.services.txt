@@ -1,0 +1,128 @@
+1. Computing and hosting
+	- IaaS : Compute Engine
+		- Unmanagd service from GCP.
+		- Uses VMs also called instances.
+		- Chose global regions and zones to deploy resources on.
+		- OS choice.
+		- Create VM from public or private images.
+		- Use other GCP sevices from ComputeEngine.
+		- Use Google Could Launcher for one click deploy.
+		- Use Instance Groups to manage multiple instances.
+		- Autoscaling with instance groups.
+		- Attach and remove disks.
+		- SSH connection to instances.
+	- CaaS : GKE
+		- Internal LB does not work with customer subnet
+		- Kubernetes Cluster Federation
+			- Connect clusters in multiple regions
+			- Connect clusters on multiple cloud providers (GCP, AWS, Azure)
+			- Connect clusters between GCP and on-premise
+		- Built on top of kubernetes
+		- Container Registry for secure storage for docker images
+		- Create and manage pods
+		- Manage Replication Controllers.
+		- Manage Services
+		- Create External Load balancer
+	- Paas : AppEngine
+		- Charged only on ingress
+		- App Engine Standard - for supported runtimes. Apps run in a sand box
+		- App Engine Flexible - bring your own runtime. Uses docker containers as runtime.
+		- hosting, scaling, monitoring and infra
+		- 	FEATURE 				| STANDARD 							| FLEXIBLE
+			____________________________________________________________________________________________________________
+
+		    Scale down to 0			| Yes								| No , minimum 1 instance
+		    Write to local disk		| No 								| Yes (ephemeral)
+		    Modify runtimes 		| No 								| Yes (Dockerfile)
+		    Pricing 				| Based on instance hours			| Based on vCPU, Memory and Disk
+		    Third prty binaries		| No 								| Yes
+		    Auto security patches 	| Yes 								| Yes (User is responsible for dokcer containers)
+		    Max request timeout		| 60 seconds 						| 60 minutes
+		    runtime					| App runs in sand box				| App runs on containers
+		    OS dependencies			| Dont chose						| Good for apps with OS dependencies like imagemagic
+
+	- FaaS : Cloud Functions
+		- Pay only when your code is running
+		- True serverless.
+		- Javascript (Node.js)
+		- Single purpose functions.
+		- Handle events / triggered raised by GCP infra and Services.
+			- HTTP inputs
+			- Cloud Storage
+			- Cloud pub/sub
+			- Firebase
+			- Stackdriver Logging
+		- The function runs when a watched event is raised.
+		- Cloud Functions are a good choice for use cases that include:
+    		- Data processing and ETL operations, for scenarios such as video transcoding and IoT streaming data.
+    		- Webhooks to respond to HTTP triggers.
+    		- Lightweight APIs that comprise loosely coupled logic into applications.
+    		- Mobile backend functions.
+    		- Support firebase
+
+2. Storage
+	- Cloud SQL : RDBMS (MySql, Postgres)
+	- Cloud Spanner : 
+		- Transactional Consistency
+		- Replications
+		- Schemas
+	- No Sql
+		- Cloud Datastore
+		- Cloud Bigtable
+	- Cloud Storage : Object storage
+		- Multi-Regional : Maximum availability and redundancy
+		- Regional : High availability and localized storage
+		- Nearline : Low-cost archival for data to be accessed 1/month
+		- Coldline : Low-Cost archival for backup and disaster recovery
+	- Persistance Disk on VM
+		- Standard
+		- SSD
+3. Networking
+	- More relevant to Compute Engine and GKE and GAE have their manage abstractions.
+	- Uses
+		- Loadbalancing traffic to resurces.
+		- Create DNS records.
+		- Connect on-premise n/w to GCP.
+	- Networking
+		- To be used by Compute Engine.
+		- Each CE instance can belong to only one network.
+		- Networks can not be shared between projects.
+	- Firewalls : To govern traffic coming into CE
+	- Route: 
+		- Creating VPN
+	- Load balancing
+		- Netwrok load balancing : Within same regions
+		- HTTP(S) load balancing : traffic across regions
+			- Routes traffic to closest region
+			- Content based routing
+	- Cloud DNS
+	- Advanced
+		- Carrier Interconnect
+		- Direct Peering
+		- Cloud VPN
+4. Big data
+	- BigQuery:
+    	- Create custom schemas that organize your data into datasets and tables.
+    	- Load data from a variety of sources, including streaming data.
+    	- Use SQL-like commands to query massive datasets very quickly. BigQuery is designed and optimized for speed.
+    	- Use the web UI, command-line interface, or API.
+    	- Load, query, export, and copy data by using jobs.
+    	- Manage data and protect it by using permissions.
+    - Cloud Dataflow:
+    	- Batch and stream data processing
+    	- ETL kind of jobs
+    		- moving data between different storage media,
+    		- transforming data into a more desirable format,
+    		- loading data onto a new storage system
+    - Cloud Pub/sub
+    	- Asynch messaging
+
+
+5. Machine Learning
+	- Google Cloud Video Intelligence API
+	- Google Cloud Speech API 
+	- Google Cloud Vision API
+	- Google Natural Language API 
+	- Google Cloud Translation API 
+	- Dialogflow Enterprise Edition 
+	- Cloud ML Engine

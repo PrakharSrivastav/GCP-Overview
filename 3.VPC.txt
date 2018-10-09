@@ -1,0 +1,144 @@
+VPC Network (network)
+	- Manage Networking for your resources 
+		- VPC nw is global resources
+		- VPC nw are logically isolated.
+		- All CE, GKE clusters, App Engine Flex instances rely on VPC as backbone.
+	- Global Autoscaling and Loadbalancing
+	- Highly Available Global DNS NW
+	- Interconnect
+	- CDN
+
+
+Components and concepts : VPC
+Firewall Rules
+	- Control which packets are allowed to travel to which destinations.
+	- Default Firewall
+		- Block incoming traffic
+		- Allow outgoing traffic
+Routes
+	- How to send traffic from an instance to another.
+	- Destination can be inside networqk or outside GCP.
+Forwarding rules
+	- IP, Port and Protocol
+	- Rules from outside GCP to network
+	- Rules from network to outside GCP
+	- Rules for destinations within GCP
+IP Addresses
+	- IP
+	- Alias IP : if multiple services are running in VM. Give each its alias IP.
+VPC Sharing and peering
+	- Shared VPC
+		- Share a VPC among multiple projects
+	- VPC Network peering
+		- Allows you to create SaaS platform.
+		- Use private RFC1918 IP addresses.
+Hybrid cloud
+ 	- VPN
+ 	- Interconnect
+Loadbalancing
+ 	- Global external loadbalancing
+ 		- HTTP(S)
+ 		- TCP
+ 		- SSL Proxy
+ 	- Regional external network lb
+ 	- Regional internal lb
+Private Google Access
+
+
+VPC NETWORKS
+
+Projects can have multiple networks.
+Network Types
+	- Default: 
+		- All new projects have default network
+		- Default networks has subnets in all region
+	- Auto:
+	- Custom:
+Specs for VPC networks:
+ 	- VPC nw are Global resources, not tied to region or zone.
+ 	- Subnets are regional resources. (IP Range).
+ 	- Firewall rules control traffic to and from network.
+ 	- Resources within VPC can communicate using internal IP.
+ 	- Instances witing VPC can communicate with Google APIs and services.
+ 	- IAM used to secure access.
+ 	- Create Shared VPC for multiple projects to communicate.
+ 	- VPC Network peering: To connect 2 VPCs in different projects and organizations.
+ 	- For Hybrid environment : Cloud VPN or Cloud Interconnect.
+ 	- Support only IPv4 unicast.
+ Network and subnets
+ 	- for creating any resource you need to select VPC and Subnet. For any thing except instance template you also select zone and region.
+ 	- Networks can have one or more subnets
+ 	- Subnets are regional scoped.
+ 	- VPC Types
+ 		- Auto mode networks : 
+ 			- Create subnets in all regions (17)
+ 			- 10.128.0.0/9 CIDR range
+ 			- difficult to connect 2 automode VPC as they have same subnet ranges by default.
+ 		- Custom mode network : 
+ 			- Start with 0 subnets
+ 		- You can switch Auto mode to Custom mode but cannot revert back
+ 	- Each subnet should have an IP range
+ 	- Minimum CIDR /29
+ 	- Subnet in same VPC network should have unique IP ranges
+ 	- When u connect 2 VPC, their subnets should have unique IP ranges.
+ 	- When u connect a VPC to on premise, subnets should have unique Ip ranges.
+ 	- Subnets can have upto 5 secondary IP ranges (Alias ranges)
+ 	- You can expand the IP range of a subnet. You cannot shrink it.
+Routes and Firewall rules
+	- Routes
+		- Define paths for packets leaving instances (egress)
+		- Types
+			- System generated
+				- Default route: Allows all egress traffic for VM
+				- Subnet route: Defines path to reach all VMs in the subnet via internal IP
+			- Custom routes
+	- Dynamic routing mode
+		- Utilized when connection dynamically via Coud Router, Interconnect or Partner interconnect.
+		- Reginal dynamic routing 
+			- default
+			- Cloud Router learns the routes to on premise nw and applies them to subnets in same region.
+		- global dynamic routing
+			- Cloud Routes learns and applies the routes to on premise nw to entire VPC
+	- Firewall rules
+		- Apply to both egress and ingress
+		- Implies firewall rules
+			- Deny all Ingress
+			- Allow all egress
+
+Rules for connecting from within VPC to Internet
+	- Need a default internet gateway in the VPC (0.0.0.0/0)
+	- Firewall rules must allow egress traffic from Instances
+	- One of the following should be true
+		- Instance has a external IP
+		- Another instance in network serves as NAT
+
+Specs for setting up VPC
+	- You can create up to five networks per project. You can request more.
+    - The default VPC network counts against the quota, but you can delete it and create a different VPC network if you desire.
+    - There are restrictions on naming VPC networks and subnets:
+       	- Each VPC network name must be unique within the project.
+        - A subnet can have the same name as its parent VPC network.
+        - There can be only one subnet of a given name in a region, regardless of parent VPC network.
+        - A VPC network cannot have the same name as a subnet in another VPC network. Example: A VPC network named "alpha" can have one subnet per region that is also called "alpha," and a VPC network called "beta" can have one subnet per region called "beta." But, VPC network "alpha" cannot have a subnet called "beta," because there is a network with that name.
+
+
+
+
+
+ 	gcloud beta container --project "weeping-angles" 
+ 		clusters create "your-first-cluster-1" 
+ 		--zone "us-central1-a" 
+ 		--username "admin" 
+ 		--cluster-version "1.9.7-gke.6" 
+ 		--machine-type "g1-small" 
+ 		--image-type "COS" 
+ 		--disk-type "pd-standard" --disk-size "100" 
+ 		--scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" 
+ 		--num-nodes "1" 
+ 		--enable-cloud-logging 
+ 		--enable-cloud-monitoring 
+ 		--network "projects/weeping-angles/global/networks/default" 
+ 		--subnetwork "projects/weeping-angles/regions/us-central1/subnetworks/default" 
+ 		--addons HorizontalPodAutoscaling,HttpLoadBalancing 
+ 		--no-enable-autoupgrade 
+ 		--enable-autorepair

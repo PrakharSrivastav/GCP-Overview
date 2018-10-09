@@ -1,0 +1,30 @@
+Can be used with
+	- App Engine
+	- Https Load balancer
+	- Application via Stackdriver SDK
+
+stream logging for stackdriver logs
+	- Big query
+	- 
+
+Monitoring
+ - Custom matrices
+ - health checks
+ - 6 weeks
+Logging
+	- audit logs 30
+	- other 7 days
+	- Sinks : in batch or streaming
+		- pubsub
+		- Bigquery
+		- Cloud Storage : Batch
+
+Debug
+Trace
+Error Reporting
+
+
+Available for GCP, AWS and Hybrid Cloud
+
+Monitoring and logging for AWS
+Other not for AWS
