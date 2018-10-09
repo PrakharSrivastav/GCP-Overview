@@ -1,0 +1,34 @@
+JencoMart -> How to measure success
+	- visits and avg latency for users in Asia
+Some engineer wrote custom tool to deploy VMs. How to carefullt use Deployement Manager to do the same
+	- DM can delete resources.
+	- DM is in python so cannot use any other language
+Ur development team uses GCP VM as dev environment. You terminate the VM after they use it. How can you make it cost effective
+	- use no-auto-delete flag when u create VM to preserve contents
+	- when not in use STOP the instance instead of TERMINATING
+Question on syntax for enabling autoscaling kubernetes cluster using gcloud
+Some department wants to create email campaign which expects load to rise to 550K clicks per day + some info that we need to store user profile. What is best config
+	- App Engine + Datastore
+At least 3-4 question on IAM with least priviledge. Some examples
+	- how to isolate production and Dev environment
+	- how to export logs for auditing
+	- What Kind of access to be provided to Storage Buckets if only Billing dept wants to access logs
+	- How to do data analysis on exported logs -> Answer export to BigQuery
+External auditing team wants to audit logs once a year. How to store and analyse
+	- Coldline Storage (With IAM access) + BigQuery
+Hybrid environment. On premise app faces problems connection to GCP. What could be the reasons
+Around 20 questions on case studies. Mostly around arranging the different GCP services together and best architecture.
+Few questions on defining Architecture
+	- A company is building new set of APIs but also want to create new set of APIs. They want to keep both of them live at the same time and reuse SSL cert and IPs what is the best architecture
+		- HTTPS loadbalancer + Appengine + Cloud Endpoint
+	- A company is using AppEngine. They want to test a change that can be tested on live environment. How to do it 
+		- Traffic Splitting
+	- MountKirk wants u to design new testing strategy. What should the new test cover.
+		- Not sure about answer but I marked option saying tests should be designed to test the GCP infrastructure
+Some questions on how to apply rollback policy for new application deployed on AppEngine
+Questions on Cloud Storage Classes. Be careful to always read the time (1 year or 1 month) in the question
+Few questions on Dataproc, dataflow, pubsub. You only need to know the overview of these services
+Question on loadbalancer restarts the VMs every  minute. Why?
+	- Check if healtcheck is configured properly
+A question on 3 tier application web, backend and database. All 3 layers are managed and scalable. You dont want web layer to connect to db layer.
+	- Apply proper firewalls.
