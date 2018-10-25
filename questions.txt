@@ -32,3 +32,39 @@ Question on loadbalancer restarts the VMs every  minute. Why?
 	- Check if healtcheck is configured properly
 A question on 3 tier application web, backend and database. All 3 layers are managed and scalable. You dont want web layer to connect to db layer.
 	- Apply proper firewalls.
+	
+--Updates from Mahi------------
+
+A large company has offices across the globe. They want to monitor meeting rooms in all their offices for people's presence using sensors. Which database you use for data sent by these sensors.
+	- NoSQL
+
+Your application process credit card information and you need smallest scope of payment card industry. How do you design your architecture?
+	- Create separate project for this application processing credit card data.
+
+Some of the users complain recently deployed application taking 30 seconds to load . What should you do?
+	- Rollback to previous version,debug application in test/stage/dev using stackdriver debugging and tracing.
+
+You have multiple databases running on MySQL instance. How do you backup data of a specific database as quickly as possible and with no performance impact.
+	- Use gcfuse
+	
+A virtual machine has ext4 file system which is running out of space. How do you add more space on this filesystem with least amount of downtime?
+	- Increase size of disk from GCP console and run resize2fs.
+
+Database team asks you to help increase performance of their database which is running on a standard machine with 80gb ssd.What do you suggest?
+	Increase size of ssd to 500 gb.
+
+Your security team wants complete visibility of projects in GCP and you are the organization admin. What roles should you provide to security team?
+	- Org viewer,project viewer.
+
+Your company has done lift and shift to GCE. You have 9 months to design a no ops and autoscaling solution. What 2 options you should choose?
+	- GKE with containers, GAE standard environment.
+
+Your company wants to move apache spark and hadoop jobs to google cloud. Which product should you use?
+	- Dataproc
+
+Users of your news website complain they see news they already viewed during peak hours. What could be the problem in the below code?(Python code below)
+	- Session variable overwritten in datastore.
+
+Your company is moving on premise application to GCP. There are strict requirements about storing passwords. You want minimal user disruption. How do you achieve this.
+	- Federate authentication using SAML 2.0 and authenticate users against existing identity domain.
+
